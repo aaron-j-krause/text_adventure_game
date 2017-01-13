@@ -1,5 +1,4 @@
 const Dungeon = require('../src/lib/dungeon').default
-const assert = require('assert')
 const expect = require('chai').expect
 
 //grid is hard coded in generate, it has 9 items
@@ -19,15 +18,16 @@ describe('dungeon.js', () => {
     })
   })
 
-  describe('flatten', () => {
-    let flattenedDungeon
+  describe('prototype methods', () => {
+    let testDungeon
 
     before(() => {
-      let testDungeon = new Dungeon()
-      flattenedDungeon = testDungeon.flatten()
+      testDungeon = new Dungeon()
     })
 
-    it('should create an array representing the dungeon', () => {
+    it('flatten should create an array representing the dungeon', () => {
+      let flattenedDungeon = testDungeon.flatten()
+
       expect(Array.isArray(flattenedDungeon)).to.equal(true)
       expect(flattenedDungeon.length).to.equal(VALID_ROOMS)
     })
