@@ -1,16 +1,30 @@
 import Dungeon from './dungeon'
 
+/**
+ * Class that runs the game
+ *
+ * @export
+ * @class DungeonMaster
+ */
 export default class DungeonMaster {
   constructor() {
     let dungeon = new Dungeon()
 
     this.dungeon = dungeon
-    this.currentRoom = dungeon.entrance    
+    this.currentRoom = dungeon.entrance
   }
 
+  /**
+   * Interact with the dungeon via command string
+   *
+   * @param {string} command - command from user input
+   * @param {Room} room - current room instance
+   * @returns
+   *
+   * @memberOf DungeonMaster
+   */
   interact(command, room) {
     let commands = room.commands
-    console.log(command, room.commands, room)
     if (!commands.includes(command)) return 'you can\'t do that'
 
     switch (command) {

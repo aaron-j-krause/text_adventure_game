@@ -1,3 +1,10 @@
+
+/**
+ * Rooms that compose a dungeon
+ *
+ * @export
+ * @class Room
+ */
 export default class Room {
 
   constructor() {
@@ -9,6 +16,15 @@ export default class Room {
     this.description = 'a damn room'
   }
 
+  /**
+   * Associates passed in room with current room by storing a
+   * reference in the adjacentRooms property of each
+   *
+   * @param {Room} room - adjacent room
+   * @param {string} dir - direction of adjacent room
+   *
+   * @memberOf Room
+   */
   addNeighbor(room, dir) {
     let inverse = {n: 's', e: 'w', w: 'e', s: 'n'}
 
@@ -16,6 +32,13 @@ export default class Room {
     this.adjacentRooms[dir] = room
   }
 
+  /**
+   * Creates a string based on the properties of the room
+   *
+   * @returns {string} description message
+   *
+   * @memberOf Room
+   */
   descriptionMessage() {
     let directions = Object.keys(this.adjacentRooms).join(' or ')
     let hasMonster = this.monster ? ' There\'s a monster here!' : ''
@@ -25,6 +48,14 @@ export default class Room {
     return baseMessage + hasExit + hasEntrance + hasMonster
   }
 
+
+  /**
+   * List of commands based on Room properties
+   *
+   * @readonly
+   *
+   * @memberOf Room
+   */
   get commands() {
     let commands = ['help', 'look', ...Object.keys(this.adjacentRooms)]
     if (this.hasExit) commands = commands.concat('exit')

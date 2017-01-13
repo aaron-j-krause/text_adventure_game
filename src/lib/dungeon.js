@@ -2,8 +2,8 @@ import Room from './room'
 
 /**
  * Dungeon class
- * calls generate on init which creates a graph of rooms and stores
- * a reference to the entrance on this.entrance
+ * calls generate on init and stores a reference to the
+ * dungeon entrance on dungeon.entrance
  * @export
  * @class Dungeon
  */
@@ -13,6 +13,13 @@ export default class Dungeon {
     this.generate()
   }
 
+  /**
+   * create a graph of rooms and store a reference
+   * to the entrance on this.entrance
+   *
+   *
+   * @memberOf Dungeon
+   */
   generate() {
     let grid = [
       ['x', 'n', 'x'],
@@ -60,6 +67,14 @@ export default class Dungeon {
     }
   }
 
+
+  /**
+   * Traverses dungeon and returns an array of copies of the rooms
+   *
+   * @returns {Object[]} array of room objects
+   *
+   * @memberOf Dungeon
+   */
   flatten() {
     let flattened = []
     this.forEach(this.entrance, r => {
@@ -71,10 +86,10 @@ export default class Dungeon {
 
   /**
    * Recursively traverses dungeon starting with passed in room
-   * 
+   *
    * @param {Room} room - instance of room
    * @param {function(room:Room)} fn - function to call for each room, gets passed room
-   * 
+   *
    * @memberOf Dungeon
    */
   forEach(room, fn, visited={}) {
@@ -84,6 +99,6 @@ export default class Dungeon {
       visited[currentRoom.id] = true
       fn(Object.assign({}, currentRoom))
       this.forEach(currentRoom, fn, visited)
-    }) 
+    })
   }
 }

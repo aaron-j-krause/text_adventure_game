@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import '../style.css'
-
 import DungeonMaster from './lib/dungeon_master'
 
 let contentArea = document.createElement('main')
@@ -66,7 +65,7 @@ class MainView extends React.Component {
           <input type="submit"></input>
         </form>
       </div>)
-  }  
+  }
 }
 
 class MessageList extends React.Component {
