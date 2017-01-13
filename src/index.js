@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import '../style.css'
 
-import Dungeon from './lib/dungeon'
+import DungeonMaster from './lib/dungeon_master'
 
 let contentArea = document.createElement('main')
 document.body.insertBefore(contentArea, document.body.firstChild)
@@ -10,11 +10,13 @@ document.body.insertBefore(contentArea, document.body.firstChild)
 class MainView extends React.Component {
   constructor(props) {
     super(props)
-    let dungeon = window.d = new Dungeon()
+    let dm = new DungeonMaster()
+    let {dungeon, currentRoom} = dm
 
     this.state = {
-      msgs: [dungeon.entrance.commandMessage()],
-      currentRoom: dungeon.entrance,
+      msgs: [currentRoom.descriptionMessage()],
+      dm,
+      currentRoom,
       dungeon
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,20 +25,23 @@ class MainView extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let room = this.state.currentRoom
+    let {currentRoom, dm, msgs} = this.state
     let input = e.target.command
-    let val = input.value.slice(2)
-    let message = room.interact(val)
-    let currentRoom = room.adjacentRooms[val] ? room.adjacentRooms[val] : room
-    let msgs = [...this.state.msgs, message]
 
-    if (message !== 'You left the dungeon.') msgs = msgs.concat(currentRoom.commandMessage())
+    let val = input.value.slice(2)
+
+    let message = dm.interact(val, currentRoom)
+    currentRoom = dm.currentRoom
+    msgs = [...msgs, message]
+    if (message !== 'You left the dungeon.') msgs = msgs.concat(currentRoom.descriptionMessage())
+
     this.setState(Object.assign({}, this.state, {msgs, currentRoom}))
     input.value = '> '
   }
 
   componentDidMount() {
     let command = document.getElementById('command_line').command
+    command.value = '> '
     document.body.addEventListener('click', () => {
       command.focus()
     })

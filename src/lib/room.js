@@ -16,7 +16,7 @@ export default class Room {
     this.adjacentRooms[dir] = room
   }
 
-  commandMessage() {
+  descriptionMessage() {
     let directions = Object.keys(this.adjacentRooms).join(' or ')
     let hasMonster = this.monster ? ' There\'s a monster here!' : ''
     let hasExit = this.hasExit ? ' You can leave if you want.' : ''
@@ -31,26 +31,5 @@ export default class Room {
     if (this.monster) commands = commands.concat('attack')
 
     return commands
-  }
-
-  interact(command) {
-    let commands = this.commands
-    if (!commands.includes(command)) return 'you can\'t do that'
-
-    switch (command) {
-      case 'n':
-      case 's':
-      case 'w':
-      case 'e':
-        return `You went ${command}.`
-      case 'help':
-        return 'Your choices are ' + commands.join(' ')
-      case 'fight':
-        return 'You died.'
-      case 'exit':
-        return 'You left the dungeon.'
-      case 'look':
-        return this.commandMessage()
-    }
   }
 }
