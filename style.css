@@ -1,0 +1,41 @@
+html, body {
+  height: 100%;
+}
+body {
+  font-family: Courier New, Courier, monospace;
+  background-color: black;
+  color: white;
+  padding: 0px 20px;
+}
+
+
+.log :last-child {
+  color: #5f5;
+}
+
+.log {
+  list-style: none;
+  padding-left: 0px;
+  margin: 0px;
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+input[type=text]:focus {
+  outline: none;
+
+}
+
+input[type=text] {
+  color:white;
+  border: none;
+  background-color: black;
+  font-family: Courier New, Courier, monospace;
+  font-size: 15px;
+  width: 100%;
+}
+input[type=submit] {
+  display: none;
+}
