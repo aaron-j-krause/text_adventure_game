@@ -1,4 +1,4 @@
-const Dungeon = require('../src/lib/dungeon').default
+const Dungeon = require('../../src/lib/dungeon').default
 const expect = require('chai').expect
 
 //grid is hard coded in generate, it has 9 items

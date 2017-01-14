@@ -25,13 +25,17 @@ export default class DungeonMaster {
    */
   interact(command, room) {
     let commands = room.commands
+    let aliases = {n:'north', s:'south', w:'west', e:'east'}
+
+    command = aliases[command] || command
+
     if (!commands.includes(command)) return 'you can\'t do that'
 
     switch (command) {
-      case 'n':
-      case 's':
-      case 'w':
-      case 'e':
+      case 'north':
+      case 'south':
+      case 'west':
+      case 'east':
         this.currentRoom = this.currentRoom.adjacentRooms[command]
         return `You went ${command}.`
       case 'help':

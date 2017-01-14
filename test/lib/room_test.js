@@ -1,4 +1,4 @@
-const Room = require('../src/lib/room').default
+const Room = require('../../src/lib/room').default
 const expect = require('chai').expect
 
 describe('room.js', () => {

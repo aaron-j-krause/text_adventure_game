@@ -26,7 +26,7 @@ export default class Room {
    * @memberOf Room
    */
   addNeighbor(room, dir) {
-    let inverse = {n: 's', e: 'w', w: 'e', s: 'n'}
+    let inverse = {north: 'south', east: 'west', west: 'east', south: 'north'}
 
     room.adjacentRooms[inverse[dir]] = this
     this.adjacentRooms[dir] = room

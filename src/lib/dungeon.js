@@ -48,7 +48,7 @@ export default class Dungeon {
 
     function join(x, y, room) {
       let steps = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-      let dirs = ['e', 's', 'w', 'n']
+      let dirs = ['east', 'south', 'west', 'north']
       let modX
       let modY
       let curr
