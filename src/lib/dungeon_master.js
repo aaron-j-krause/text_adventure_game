@@ -8,7 +8,7 @@ import Dungeon from './dungeon'
  */
 export default class DungeonMaster {
   constructor() {
-    let dungeon = new Dungeon()
+    const dungeon = new Dungeon()
 
     this.dungeon = dungeon
     this.currentRoom = dungeon.entrance
@@ -24,12 +24,10 @@ export default class DungeonMaster {
    * @memberOf DungeonMaster
    */
   interact(command, room) {
-    let commands = room.commands
-    let aliases = {n:'north', s:'south', w:'west', e:'east'}
+    const commands = room.commands
+    const aliases = { n: 'north', s: 'south', w: 'west', e: 'east' }
 
     command = aliases[command] || command
-
-    if (!commands.includes(command)) return 'you can\'t do that'
 
     switch (command) {
       case 'north':
@@ -38,14 +36,16 @@ export default class DungeonMaster {
       case 'east':
         this.currentRoom = this.currentRoom.adjacentRooms[command]
         return `You went ${command}.`
-      case 'help':
-        return 'Your choices are ' + commands.join(' ')
       case 'fight':
         return 'You died.'
       case 'exit':
         return 'You left the dungeon.'
       case 'look':
         return this.descriptionMessage()
+      case 'help':
+        return `Your choices are ${commands.join(' ')}`
+      default:
+        return 'You can\'t do that'
     }
   }
 }

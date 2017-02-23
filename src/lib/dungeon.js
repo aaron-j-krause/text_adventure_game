@@ -21,23 +21,23 @@ export default class Dungeon {
    * @memberOf Dungeon
    */
   generate() {
-    let grid = [
+    const grid = [
       ['x', 'n', 'x'],
       ['x', 'o', 'x'],
       ['x', 'e', 'o']
     ]
-    let curr
+    let currentRoom
     let newRoom
 
-    for (var y = 0; y < grid.length; y++) {
-      for (var x = 0; x < grid[y].length; x++) {
-        curr = grid[y][x]
-        if (curr === 'x' || curr === 'n' || curr === 'e') {
+    for (let y = 0; y < grid.length; y += 1) {
+      for (let x = 0; x < grid[y].length; x += 1) {
+        currentRoom = grid[y][x]
+        if (currentRoom === 'x' || currentRoom === 'n' || currentRoom === 'e') {
           newRoom = new Room()
 
-          newRoom.hasEntrance = curr === 'n'
-          newRoom.hasExit = curr === 'e'
-          newRoom.id = y * 3 + x
+          newRoom.hasEntrance = currentRoom === 'n'
+          newRoom.hasExit = currentRoom === 'e'
+          newRoom.id = (y * 3) + x
 
           if (newRoom.hasEntrance) this.entrance = newRoom
           grid[y][x] = newRoom
@@ -47,8 +47,8 @@ export default class Dungeon {
     }
 
     function join(x, y, room) {
-      let steps = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-      let dirs = ['east', 'south', 'west', 'north']
+      const steps = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+      const dirs = ['east', 'south', 'west', 'north']
       let modX
       let modY
       let curr
@@ -67,7 +67,6 @@ export default class Dungeon {
     }
   }
 
-
   /**
    * Traverses dungeon and returns an array of copies of the rooms
    *
@@ -76,8 +75,8 @@ export default class Dungeon {
    * @memberOf Dungeon
    */
   flatten() {
-    let flattened = []
-    this.forEach(this.entrance, r => {
+    const flattened = []
+    this.forEach(this.entrance, (r) => {
       flattened.push(Object.assign({}, r))
     })
 
@@ -92,9 +91,9 @@ export default class Dungeon {
    *
    * @memberOf Dungeon
    */
-  forEach(room, fn, visited={}) {
-    Object.keys(room.adjacentRooms).forEach(r => {
-      let currentRoom = room.adjacentRooms[r]
+  forEach(room, fn, visited = {}) {
+    Object.keys(room.adjacentRooms).forEach((r) => {
+      const currentRoom = room.adjacentRooms[r]
       if (visited[currentRoom.id]) return
       visited[currentRoom.id] = true
       fn(Object.assign({}, currentRoom))

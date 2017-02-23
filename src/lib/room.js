@@ -26,7 +26,7 @@ export default class Room {
    * @memberOf Room
    */
   addNeighbor(room, dir) {
-    let inverse = {north: 'south', east: 'west', west: 'east', south: 'north'}
+    const inverse = { north: 'south', east: 'west', west: 'east', south: 'north' }
 
     room.adjacentRooms[inverse[dir]] = this
     this.adjacentRooms[dir] = room
@@ -40,14 +40,13 @@ export default class Room {
    * @memberOf Room
    */
   descriptionMessage() {
-    let directions = Object.keys(this.adjacentRooms).join(' or ')
-    let hasMonster = this.monster ? ' There\'s a monster here!' : ''
-    let hasExit = this.hasExit ? ' You can leave if you want.' : ''
-    let hasEntrance = this.hasEntrance ? ' This is where you came in.' : ''
-    let baseMessage = `You are in ${this.description}. You can go ${directions}.`
+    const directions = Object.keys(this.adjacentRooms).join(' or ')
+    const hasMonster = this.monster ? ' There\'s a monster here!' : ''
+    const hasExit = this.hasExit ? ' You can leave if you want.' : ''
+    const hasEntrance = this.hasEntrance ? ' This is where you came in.' : ''
+    const baseMessage = `You are in ${this.description}. You can go ${directions}.`
     return baseMessage + hasExit + hasEntrance + hasMonster
   }
-
 
   /**
    * List of commands based on Room properties

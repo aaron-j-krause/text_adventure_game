@@ -1,10 +1,4 @@
-import React from 'react'
-
 class Character {
-  constructor(type) {
-
-  }
-
   /**
    * Object with arrays of stat modifiers by type
    * [hp, str, def, dex]
@@ -32,7 +26,7 @@ class Character {
   }
 
   static get baseStats() {
-    //[hp, str, def, dex]
+    // [hp, str, def, dex]
     return [10, 2, 2, 2]
   }
 
@@ -41,8 +35,8 @@ class Character {
   }
 
   baseStats() {
-    let {statNames, typeBaseModifiers, baseStats} = Character
-    let mods = typeBaseModifiers[this.type]
+    const { statNames, typeBaseModifiers, baseStats } = Character
+    const mods = typeBaseModifiers[this.type]
     this.level = 1
 
     statNames.reduce((a, c, i) => {
@@ -54,9 +48,9 @@ class Character {
   levelUp() {
     this.exp = 0
     if (this.nextLevel) this.nextLevel = Math.ceil(this.nextLevel * 1.5)
-    let {statNames, typeLevelModifiers} = Character
-    let mods = typeLevelModifiers[this.type]
-    this.level++
+    const { statNames, typeLevelModifiers } = Character
+    const mods = typeLevelModifiers[this.type]
+    this.level += 1
 
     statNames.reduce((a, c, i) => {
       a[c] = Math.ceil(a[c] * mods[i])
@@ -83,7 +77,7 @@ export class Monster extends Character {
 
     this.type = type
     super.baseStats()
-    for (; level > 1; level--) {
+    for (; level > 1; level -= 1) {
       this.levelUp()
     }
   }

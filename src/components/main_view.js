@@ -6,8 +6,8 @@ import MessageList from './message_list'
 export default class MainView extends React.Component {
   constructor(props) {
     super(props)
-    let dm = new DungeonMaster()
-    let {dungeon, currentRoom} = dm
+    const dm = new DungeonMaster()
+    const { dungeon, currentRoom } = dm
 
     this.state = {
       msgs: [currentRoom.descriptionMessage()],
@@ -17,27 +17,10 @@ export default class MainView extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleSubmit(e) {
-    e.preventDefault()
-    let {currentRoom, dm, msgs} = this.state
-    let input = e.target.command
-
-    let val = input.value.slice(2)
-
-    let message = dm.interact(val, currentRoom)
-    currentRoom = dm.currentRoom
-    msgs = [...msgs, message]
-    if (message !== 'You left the dungeon.') msgs = msgs.concat(currentRoom.descriptionMessage())
-
-    this.setState(Object.assign({}, this.state, {msgs, currentRoom}))
-    input.value = '> '
   }
 
   componentDidMount() {
-    let command = document.getElementById('command_line').command
+    const command = document.getElementById('command_line').command
     command.value = '> '
     document.body.addEventListener('click', () => {
       command.focus()
@@ -48,19 +31,29 @@ export default class MainView extends React.Component {
     command.focus()
   }
 
-  handleClick(e) {
+  handleSubmit(e) {
     e.preventDefault()
+    let { currentRoom, dm, msgs } = this.state // eslint-disable-line
+    const input = e.target.command
 
-    document.getElementById('command_line').command.focus()
+    const val = input.value.slice(2)
+
+    const message = dm.interact(val, currentRoom)
+    currentRoom = dm.currentRoom
+    msgs = [...msgs, message]
+    if (message !== 'You left the dungeon.') msgs = msgs.concat(currentRoom.descriptionMessage())
+
+    this.setState(Object.assign({}, this.state, { msgs, currentRoom }))
+    input.value = '> '
   }
 
   render() {
     return (
       <div >
-        <MessageList messages={this.state.msgs}/>
-        <form id="command_line" onSubmit={ this.handleSubmit }>
-          <input name="command" type="text" autoComplete="off"></input>
-          <input type="submit"></input>
+        <MessageList messages={this.state.msgs} />
+        <form id="command_line" onSubmit={this.handleSubmit}>
+          <input name="command" type="text" autoComplete="off" />
+          <input type="submit" />
         </form>
       </div>)
   }
